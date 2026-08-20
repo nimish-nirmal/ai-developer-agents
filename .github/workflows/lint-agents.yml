@@ -1,0 +1,43 @@
+name: Lint Agents
+
+on:
+  pull_request:
+    paths:
+      - 'agents/**/*.md'
+      - 'scripts/**'
+      - '.github/workflows/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'agents/**/*.md'
+      - 'scripts/**'
+      - '.github/workflows/**'
+
+jobs:
+  validate-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+
+      - name: Validate agent markdown files
+        run: python scripts/validate_agents.py
+
+      - name: Check agent count
+        run: |
+          count=$(ls agents/*.md | wc -l)
+          echo "Found $count agent files"
+          if [ "$count" -lt 1 ]; then
+            echo "Error: No agent files found"
+            exit 1
+          fi
