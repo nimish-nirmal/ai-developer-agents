@@ -15,7 +15,7 @@ This repository gives you that entire team—as AI prompts you can load into too
 ## Core Features
 
 - **Orchestrator + Subagents Model**: A central Orchestrator decomposes tasks and dispatches them to specialized subagents, then synthesizes their outputs into a unified deliverable.
-- **14 Specialized Agents**: Covering the full SDLC—architecture, implementation, testing, documentation, review, security, DevOps, performance, IoT, integration, and more.
+- **20 Specialized Agents**: Covering the full SDLC—architecture, implementation, testing, documentation, review, security, DevOps, performance, IoT, integration, debugging, refactoring, business communication, and a general-purpose solo engineer.
 - **IDE-Agnostic Prompts**: Markdown-based agent definitions load directly into Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, and similar tools.
 - **CI Validation**: Automated linting and validation of agent definitions on every PR.
 - **Extensible**: Add custom agents by following the established schema and conventions.
@@ -55,6 +55,11 @@ flowchart TD
     Orchestrator --> IoTExpert
     Orchestrator --> PerformanceAnalyst
     Orchestrator --> SecurityAuditor
+    Orchestrator --> GeneralEngineer
+    Orchestrator --> Debugger
+    Orchestrator --> RefactoringSpecialist
+    Orchestrator --> CyberSecurityExpert
+    Orchestrator --> BusinessDocSpecialist
 ```
 
 The **Orchestrator** receives high-level user tasks, decomposes them into discrete subtasks, dispatches each to the most appropriate agent, and synthesizes the results into a final deliverable. This enables complex, end-to-end workflows while maintaining specialization and quality.
@@ -64,6 +69,11 @@ The **Orchestrator** receives high-level user tasks, decomposes them into discre
 | Filename | Role | Typical Input | Typical Output |
 |----------|------|--------------|----------------|
 | `orchestrator.md` | Central task coordinator and synthesizer | High-level task description | Integrated final deliverable with summary |
+| `general_engineer.md` | End-to-end solo engineer for any task | Task description, existing code | Complete solution: code, tests, docs, deployment |
+| `debugger.md` | Root cause analysis and minimal bug fixes | Bug description, stack traces, logs | Root cause, minimal fix, prevention tests |
+| `refactoring_specialist.md` | Legacy code modernization and debt reduction | Code to refactor, pain points | Refactoring plan, safe changes, test coverage |
+| `cyber_security_expert.md` | Offensive security, pentesting, threat hunting, hardening | Scope, architecture, code, configs | Security assessment, exploits, remediation plan |
+| `business_documentation_specialist.md` | Marketing, sales docs, PPTs, presentations, content scraping | Source material, audience, format | Business docs, slide decks, transformed content |
 | `api_specialist.md` | Validates OpenAPI specs and API design | API endpoints, OpenAPI YAML/JSON | API assessment with consistency score and recommendations |
 | `architecture_reviewer.md` | Evaluates system design, scalability, reliability | HLD/LLD, architecture diagrams | Assessment report with trade-offs and recommendations |
 | `code_reviewer.md` | Reviews code for quality, bugs, and security | PR diffs, source code | Structured review with severity-ranked findings and fixes |
@@ -134,12 +144,14 @@ Orchestrator: I'll decompose this into subtasks and dispatch them to the appropr
 Orchestrator: Here is the integrated final deliverable...
 ```
 
-## Example End-to-End Workflow
+## Example End-to-End Workflows
 
-### Input
+### Workflow 1: User Authentication Microservice
+
+**Input**
 > **User:** "Build a user authentication microservice with JWT, rate limiting, and PostgreSQL."
 
-### Orchestrator Execution
+**Orchestrator Execution**
 
 1. **Decompose** the task:
    - Design microservice architecture (`architecture_reviewer`)
@@ -170,7 +182,7 @@ Orchestrator: Here is the integrated final deliverable...
    - Resolves any conflicting recommendations (e.g., database indexing vs. write performance).
    - Validates completeness against original requirements.
 
-### Output
+**Output**
 A complete, production-ready repository with:
 - `src/` — Auth service implementation
 - `migrations/` — Database schema and indexes
@@ -179,6 +191,249 @@ A complete, production-ready repository with:
 - `Dockerfile` — Containerized deployment
 - `.github/workflows/` — CI/CD pipeline
 - `SECURITY.md` — Security audit findings and remediations
+
+---
+
+### Workflow 2: Using Multiple AI Tools Together
+
+This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, Copilot, Kilo) with the agent suite for maximum productivity.
+
+**Scenario**: You're building a new SaaS product and want to leverage multiple AI tools.
+
+#### Step 1: Cursor — Initial Project Scaffolding
+1. Load `general_engineer.md` into Cursor as a project rule (`.cursor/rules/general_engineer.md`).
+2. Ask Cursor to scaffold the project:
+   ```
+   Scaffold a new SaaS project for a project management tool.
+   Use TypeScript, Node.js, PostgreSQL, and React.
+   Include Docker setup and CI/CD.
+   ```
+3. Cursor generates the initial project structure using the general engineer's expertise.
+
+#### Step 2: GitHub Copilot — Inline Implementation
+1. Load `developer_agent.md` into Copilot via `.github/copilot-instructions.md`.
+2. As you write code, Copilot suggests implementations following the Ponytail Decision Ladder.
+3. Copilot flags potential bloat, suggesting stdlib/platform solutions first.
+
+#### Step 3: Kilo — Deep Architecture Review
+1. Open Kilo and load `architecture_reviewer.md`.
+2. Ask Kilo to review the architecture:
+   ```
+   Review the architecture of the project in /path/to/project.
+   Focus on scalability, reliability, and cost efficiency.
+   ```
+3. Kilo provides detailed architectural feedback with trade-offs.
+
+#### Step 4: Cursor — Security & Performance
+1. In Cursor, switch to `security_auditor.md` context.
+2. Run a security audit on the generated code.
+3. Switch to `performance_analyst.md` and profile for bottlenecks.
+
+#### Step 5: Claude Projects — Business Documentation
+1. Create a Claude Project and upload `business_documentation_specialist.md`.
+2. Feed it the architecture docs and codebase:
+   ```
+   Create a pitch deck and technical whitepaper for this SaaS product.
+   Target audience: investors and enterprise customers.
+   ```
+3. Claude generates professional business documents and presentations.
+
+#### Step 6: Orchestrator — Final Integration
+1. Load `orchestrator.md` into your primary tool.
+2. Ask it to review all outputs from the other tools and create a unified project plan.
+3. The Orchestrator synthesizes everything into a coherent final deliverable.
+
+**Result**: You've used 5 different AI tools, each with specialized agents, to build a complete product. Each tool played to its strengths:
+- **Cursor**: Fast code generation and editing
+- **Copilot**: Inline suggestions and bloat prevention
+- **Kilo**: Deep analysis and review
+- **Claude**: Long-form business content
+- **Orchestrator**: Synthesis and coordination
+
+---
+
+### Workflow 3: Debugging a Production Incident
+
+**Input**
+> **User:** "Users are getting 500 errors on the checkout page. Payment service is down."
+
+**Multi-Agent Debugging Flow**
+
+1. **Orchestrator** decomposes the incident:
+   - Gather logs and error traces (`debugger`)
+   - Review recent code changes (`code_reviewer`)
+   - Check infrastructure health (`devops_reviewer`)
+   - Review payment service code (`developer_agent`)
+   - Analyze performance (`performance_analyst`)
+   - Security check (`security_auditor`)
+
+2. **Debugger** performs root cause analysis:
+   - Identifies the payment service crashed due to unhandled null in the webhook handler
+   - Provides minimal fix and regression test
+
+3. **DevOps Reviewer** checks infrastructure:
+   - Identifies missing circuit breaker in the payment service mesh
+   - Recommends health check improvements
+
+4. **Code Reviewer** validates the fix:
+   - Ensures the fix doesn't introduce new bugs
+   - Suggests additional error handling
+
+5. **Orchestrator** synthesizes:
+   - Merges findings into a post-mortem report
+   - Prioritizes fixes by severity
+   - Creates action items for the team
+
+**Output**
+- Root cause analysis report
+- Minimal code fix with tests
+- Infrastructure recommendations
+- Post-mortem document
+- Prevention action items
+
+---
+
+### Workflow 4: Legacy Code Modernization
+
+**Input**
+> **User:** "Our 5-year-old codebase is a mess. We need to modernize it without breaking anything."
+
+**Multi-Agent Modernization Flow**
+
+1. **Orchestrator** plans the modernization:
+   - Analyze current state (`refactoring_specialist`)
+   - Review architecture (`architecture_reviewer`)
+   - Assess security (`security_auditor`)
+   - Plan testing strategy (`test_writer`)
+   - Design target architecture (`architecture_reviewer`)
+
+2. **Refactoring Specialist** executes:
+   - Adds characterization tests for critical paths
+   - Creates incremental refactoring plan
+   - Applies safe refactoring patterns
+   - Reduces technical debt
+
+3. **Architecture Reviewer** validates:
+   - Ensures modernization aligns with best practices
+   - Identifies remaining architectural gaps
+   - Recommends long-term improvements
+
+4. **Security Auditor** checks:
+   - Identifies security debt
+   - Recommends security hardening
+   - Maps to compliance requirements
+
+5. **Test Writer** ensures coverage:
+   - Adds regression tests
+   - Creates integration test suite
+   - Validates behavior preservation
+
+6. **Orchestrator** synthesizes:
+   - Creates modernization roadmap
+   - Prioritizes work by risk and value
+   - Delivers phased implementation plan
+
+**Output**
+- Current state assessment
+- Characterization test suite
+- Incremental refactoring plan
+- Modernized code with preserved behavior
+- Updated documentation
+- Long-term modernization roadmap
+
+---
+
+### Workflow 5: Startup Pitch & Investor Materials
+
+**Input**
+> **User:** "We need investor materials for our AI-powered SaaS startup."
+
+**Multi-Agent Content Creation Flow**
+
+1. **General Engineer** provides technical overview:
+   - Summarizes the technical architecture
+   - Explains the tech stack and competitive advantages
+   - Provides technical differentiators
+
+2. **Architecture Reviewer** creates technical whitepaper:
+   - Detailed system design document
+   - Scalability and reliability analysis
+   - Technical roadmap
+
+3. **Business Documentation Specialist** creates pitch materials:
+   - 10-slide investor pitch deck
+   - One-page executive summary
+   - Competitive battle card
+   - Financial projections template
+
+4. **Security Auditor** adds security section:
+   - Security architecture overview
+   - Compliance posture (SOC2, GDPR)
+   - Data protection measures
+
+5. **Orchestrator** synthesizes:
+   - Combines all materials into a cohesive investor package
+   - Ensures consistency across documents
+   - Creates a unified narrative
+
+**Output**
+- Investor pitch deck (PPT/PDF)
+- Technical whitepaper
+- One-page executive summary
+- Competitive analysis
+- Security and compliance overview
+- Unified investor package
+
+---
+
+### Tips for Multi-Tool Workflows
+
+1. **Play to Each Tool's Strengths**
+   - **Cursor**: Fast code generation, inline editing
+   - **Copilot**: Context-aware suggestions, bloat prevention
+   - **Kilo/Kiro**: Deep analysis, long-form reasoning
+   - **Claude**: Long documents, business content
+   - **GPTs**: Customized repeatable workflows
+
+2. **Use Orchestrator as the Brain**
+   Let the Orchestrator coordinate between tools and synthesize results.
+
+3. **Maintain a Single Source of Truth**
+   Keep your project in one repository. Use agents to analyze, not to fragment your codebase.
+
+4. **Chain Agents Logically**
+   - Design → Implement → Test → Review → Secure → Deploy
+   - Each step feeds context to the next
+
+5. **Don't Over-Orchestrate**
+   For simple tasks, use `general_engineer.md` in your primary tool. Reserve multi-tool workflows for complex projects.
+
+---
+
+### Workflow 6: IoT Edge Gateway with Security & Business Materials
+
+**Input**
+> **User:** "Design an IoT edge gateway, build a prototype, and create investor materials for our IoT startup."
+
+**Full-Stack Multi-Agent Flow**
+
+1. **Architecture Reviewer** — Designs edge gateway architecture with failover
+2. **IoT Protocol Specialist** — Evaluates MQTT/Modbus protocols and edge processing
+3. **Developer Agent** — Implements the gateway service
+4. **Database Expert** — Designs time-series data schema
+5. **Test Writer** — Creates tests for device communication and data pipelines
+6. **Cyber Security Expert** — Penetration tests the gateway, identifies device auth flaws
+7. **DevOps Reviewer** — Builds Docker image and OTA update strategy
+8. **Performance Analyst** — Profiles edge-to-cloud latency
+9. **Business Documentation Specialist** — Creates investor pitch and technical whitepaper
+10. **Orchestrator** — Synthesizes all into a complete product package
+
+**Output**
+- Working IoT edge gateway prototype
+- Security assessment and hardening plan
+- Investor pitch deck and whitepaper
+- Complete technical documentation
+
 
 ## Validation
 
@@ -197,6 +452,10 @@ This checks:
 ## Detailed Agent Reference
 
 See [docs/agents.md](docs/agents.md) for a categorized breakdown of all agents with usage tips.
+
+## Usage Guide
+
+See [docs/usage.md](docs/usage.md) for step-by-step instructions on loading agents into Kiro, Kilo, GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, and Windsurf.
 
 ## Contribution Guidelines
 

@@ -106,6 +106,23 @@ List:
 - Backward compatibility
 - Migration steps (if applicable)
 
+## Ponytail Decision Ladder
+
+Before writing or modifying code, stop at the first level that solves the requirement:
+1. **Need**: Does this actually need to exist? Reject speculative complexity and YAGNI.
+2. **Reuse**: Does the current codebase already solve this?
+3. **Stdlib**: Does the language standard library provide a native solution?
+4. **Platform**: Does the native environment/browser cover it? (e.g., native inputs, CSS over JS).
+5. **Existing Dependencies**: Does an already-installed dependency solve it?
+6. **One-liner**: Can it be written in a concise, readable one-liner?
+7. **Minimum Code**: Write the absolute smallest surface area of new code necessary.
+
+### Safety Guards (Never simplify away)
+- Input validation at trust boundaries.
+- Error handling that prevents data loss or crashes.
+- Security controls and accessibility requirements.
+- Any explicit user constraints.
+
 ## Input
 The user will provide:
 - Task description or feature requirements
