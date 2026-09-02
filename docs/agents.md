@@ -14,17 +14,17 @@ This guide explains each agent in plain language, what it does, when to use it, 
 ## How to Use Agents
 
 ### What You Need
-- An AI-powered tool: Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, or any tool that accepts system prompts.
+- An AI-powered tool: Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, Kiro, Kilo, Cline, or any tool that accepts system prompts.
 - The agent `.md` files from this repository.
 
 ### Basic Workflow
-1. **Choose your entry point**: For most tasks, start with `orchestrator.md`. For focused tasks, you can use individual agents directly.
+1. **Choose your entry point**: For solo work or simple tasks, use `general_engineer.md`. For complex projects, start with `orchestrator.md`. For specific tasks, use individual agents directly.
 2. **Load the agent**: Copy the contents of the `.md` file into your AI tool's system prompt, instructions, or project rules.
 3. **Provide your input**: Describe what you want to build, review, or analyze.
 4. **Review the output**: The agent will return structured results based on its expertise.
 
 ### Pro Tip for Beginners
-Start with the Orchestrator for everything. It will automatically call the right specialists for you. You only need to load individual agents if you want to do one specific task repeatedly.
+Start with `general_engineer.md` for any task. It handles everything from architecture to deployment in one agent. Use the Orchestrator and specialized agents when you need deeper expertise or team-style coordination.
 
 ---
 
@@ -35,11 +35,25 @@ Start with the Orchestrator for everything. It will automatically call the right
 #### `orchestrator.md` — The Team Lead
 **What it does:** Breaks big tasks into smaller pieces, sends each piece to the right specialist, and combines everything into a final result.
 
-**When to use:** Always use this as your starting point. Give it a high-level task like "Build a todo app" or "Review my authentication code."
+**When to use:** For complex, multi-faceted projects where you want the highest quality output across all domains.
 
 **Input:** A natural-language description of what you want to build or fix.
 
 **Output:** A complete, integrated result—working code, documentation, tests, and recommendations.
+
+#### `general_engineer.md` — The Solo Engineer
+**What it does:** Handles any software engineering task end-to-end: architecture, implementation, testing, documentation, security, and deployment. This is the "one person who can do everything" agent.
+
+**When to use:** For solo development, rapid prototyping, or any task where you want a single agent to deliver a complete solution without coordination overhead.
+
+**Input:** Task description, existing code (if any), tech stack, and constraints.
+
+**Output:** Complete solution including code, tests, documentation, and deployment instructions.
+
+**Key concepts:**
+- Full-stack capability across any language or framework
+- Applies the Ponytail Decision Ladder to avoid bloat
+- Produces production-ready, minimal code
 
 ---
 
@@ -97,7 +111,7 @@ Start with the Orchestrator for everything. It will automatically call the right
 #### `developer_agent.md` — Code Writer
 **What it does:** Writes production-ready code following your project's existing patterns and best practices.
 
-**When to use:** When you need to implement a feature, fix a bug, or write new code.
+**When to use:** When you need to implement a feature, fix a bug, or write new code as part of a team workflow.
 
 **Input:** Feature requirements, existing code examples, project structure, and technology stack.
 
@@ -108,6 +122,36 @@ Start with the Orchestrator for everything. It will automatically call the right
 - **Error handling** — Gracefully managing failures
 - **Security best practices** — Preventing common vulnerabilities
 - **Testing strategy** — How to verify the code works
+
+#### `debugger.md` — Bug Hunter
+**What it does:** Finds the root cause of bugs through systematic investigation and provides minimal, targeted fixes.
+
+**When to use:** When you have a bug, crash, or unexpected behavior that needs diagnosis.
+
+**Input:** Bug description, stack traces, error logs, and reproduction steps.
+
+**Output:** Root cause analysis, minimal fix, verification steps, and prevention recommendations.
+
+**Key concepts:**
+- **Root cause analysis** — Finding the source, not just the symptom
+- **Reproduction** — Creating minimal test cases
+- **Scientific method** — Hypothesis, test, iterate
+- **Characterization tests** — Tests that lock in existing behavior
+
+#### `refactoring_specialist.md` — Code Improver
+**What it does:** Safely improves existing code structure, reduces technical debt, and modernizes legacy systems without changing behavior.
+
+**When to use:** When working with legacy code, technical debt, or code that's hard to maintain.
+
+**Input:** Code to refactor, pain points, and constraints.
+
+**Output:** Refactoring plan, safe incremental changes, and improved test coverage.
+
+**Key concepts:**
+- **Characterization tests** — Tests that document current behavior
+- **Safe refactoring patterns** — Extract method, rename, move method, etc.
+- **Incremental change** — Small, reversible steps
+- **Technical debt** — Prioritized improvement roadmap
 
 ---
 
@@ -142,6 +186,24 @@ Start with the Orchestrator for everything. It will automatically call the right
 - **Authentication & authorization** — Who can access what?
 - **Input validation** — Preventing malicious data from causing harm
 - **Encryption** — Protecting data in transit and at rest
+
+#### `cyber_security_expert.md` — Offensive Security Specialist
+**What it does:** Performs penetration testing, threat hunting, incident response, and proactive security hardening. Thinks like an attacker to defend systems.
+
+**When to use:** When you need deep security assessment, pentesting, or advanced threat mitigation beyond standard security audits.
+
+**Input:** Target scope, architecture, code, configurations, and authorization limits.
+
+**Output:** Security assessment, attack surface map, critical findings, exploitation steps (if authorized), and prioritized remediation plan.
+
+**Key concepts it covers:**
+- **Penetration Testing** — Web, network, API, mobile, cloud
+- **Threat Hunting** — Proactive detection of advanced threats
+- **Incident Response** — Containment, eradication, recovery
+- **Exploit Development** — Understanding and mitigating CVEs and zero-days
+- **OSINT** — Open-source intelligence and attack surface mapping
+- **Cloud Security** — AWS/Azure/GCP hardening, IAM, CSPM
+- **Compliance** — GDPR, HIPAA, PCI-DSS, SOC2 mapping
 
 #### `devops_reviewer.md` — Infrastructure Reviewer
 **What it does:** Reviews your deployment setup, CI/CD pipelines, containers, and infrastructure code.
@@ -255,9 +317,45 @@ Start with the Orchestrator for everything. It will automatically call the right
 
 ---
 
+### Business Communication
+
+#### `business_documentation_specialist.md` — Marketing, Sales & Business Docs
+**What it does:** Creates marketing content, sales enablement materials, presentations, business cases, and transforms/scrapes content from various sources into professional documents.
+
+**When to use:** When you need investor decks, pitch presentations, marketing copy, sales battle cards, or need to extract and reformat content from PDFs, websites, or wikis.
+
+**Input:** Source material (docs, websites, PDFs), audience description, format requirements (PPT, Word, PDF), and brand guidelines.
+
+**Output:** Professional business documents, slide decks, marketing content, and transformed/scraped content.
+
+**Key concepts it covers:**
+- **Technical Translation** — Converting complex tech into business narratives
+- **Presentation Design** — Compelling slide decks and visual storytelling
+- **Content Scraping** — Extracting and reformatting content from multiple sources
+- **Sales Enablement** — Battle cards, demo scripts, objection handling
+- **Executive Communication** — Board-ready summaries and investor materials
+- **Proposal Writing** — RFP responses, SOWs, project charters
+
+---
+
 ## Agent Workflow Examples
 
-### Example 1: Building a REST API
+### Example 1: Building a REST API (Solo Mode)
+
+**Your task:** "Build a REST API for a task management app."
+
+**Using `general_engineer.md`:**
+1. Analyze requirements and existing codebase
+2. Design the API and database schema
+3. Implement endpoints with authentication
+4. Write tests
+5. Create documentation
+6. Review for security and performance
+7. Provide deployment instructions
+
+**Result:** A complete, tested, documented, and secure REST API—all from one agent.
+
+### Example 2: Building a REST API (Team Mode)
 
 **Your task:** "Build a REST API for a task management app."
 
@@ -273,35 +371,55 @@ Start with the Orchestrator for everything. It will automatically call the right
 
 **Result:** A complete, tested, documented, and secure REST API.
 
-### Example 2: Reviewing Existing Code
+### Example 3: Debugging a Production Issue
 
-**Your task:** "Review my authentication code for issues."
+**Your task:** "Users are getting 500 errors on the checkout page."
 
-**Orchestrator flow:**
-1. `code_reviewer` — Finds bugs and code quality issues
-2. `security_auditor` — Checks for security vulnerabilities
-3. `performance_analyst` — Identifies performance bottlenecks
+**Using `debugger.md`:**
+1. Analyze error logs and stack traces
+2. Reproduce the issue in a test environment
+3. Identify the root cause (e.g., unhandled null in payment service)
+4. Provide minimal fix
+5. Add regression test
 
-**Result:** A prioritized list of issues with fixes.
+**Result:** Bug fixed with minimal code change and test coverage.
+
+### Example 4: Modernizing Legacy Code
+
+**Your task:** "Our 5-year-old codebase is a mess. We need to modernize it without breaking anything."
+
+**Using `refactoring_specialist.md`:**
+1. Analyze codebase and identify technical debt hotspots
+2. Add characterization tests for critical paths
+3. Create incremental refactoring plan
+4. Apply safe refactoring patterns
+5. Update documentation
+6. Provide modernization roadmap
+
+**Result:** Cleaner, more maintainable code with full test coverage.
 
 ---
 
 ## Tips for Beginners
 
-### 1. Start Small
-Don't try to build a massive system in one go. Start with a simple task like "Create a hello world API" and let the Orchestrator show you how it works.
+### 1. Start with `general_engineer.md`
+If you're new or working alone, this agent handles everything. It's your "senior engineer in a box."
 
-### 2. Provide Good Input
-The better your input, the better the output. Instead of "make an API," try "create a REST API for a todo app with user authentication using JWT and PostgreSQL."
+### 2. Use the Orchestrator for Big Projects
+For complex, multi-faceted projects, the Orchestrator coordinates specialized agents for higher quality.
 
-### 3. Review Agent Outputs
+### 3. Provide Good Context
+The better your input, the better the output. Include:
+- Project structure and tech stack
+- Existing code examples
+- Specific requirements and constraints
+- Any relevant documentation
+
+### 4. Review Everything
 Agents give you recommendations and code, but you should review everything before using it in production.
 
-### 4. Iterate
+### 5. Iterate
 If an agent's output isn't quite right, give it more specific feedback. For example: "The database schema looks good, but add an index on the email column."
-
-### 5. Combine Agents
-For complex projects, let the Orchestrator handle the workflow. For quick tasks, you can use individual agents directly (e.g., just `code_reviewer` for a quick review).
 
 ### 6. Learn from the Outputs
 Each agent returns structured, educational output. Read through the recommendations—you'll learn about security patterns, performance optimization, and best practices just by using them.
@@ -314,5 +432,6 @@ Feel free to modify the agent files to match your project's specific needs. Add 
 ## Need Help?
 
 - **Getting started?** See the main [README.md](../README.md) for installation and setup.
+- **Usage guide?** See [usage.md](usage.md) for step-by-step instructions on loading agents into Kiro, Kilo, GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, and Windsurf.
 - **Adding new agents?** See [CONTRIBUTING.md](../CONTRIBUTING.md).
 - **Found a bug?** Open an issue with details about what happened.

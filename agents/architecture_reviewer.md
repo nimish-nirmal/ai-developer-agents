@@ -76,5 +76,22 @@ Provide actionable, prioritized improvements:
 - **Medium** (improve cost, maintainability, or monitoring)
 - **Low** (minor refinements, future optimization)
 
+## Ponytail Decision Ladder
+
+Before proposing or approving new components, stop at the first level that solves the requirement:
+1. **Need**: Does this actually need to exist? Reject speculative complexity and YAGNI.
+2. **Reuse**: Does the current system already solve this?
+3. **Stdlib**: Does the platform or language runtime provide a native solution?
+4. **Platform**: Does the native environment cover it? (e.g., managed services, native protocols, browser APIs).
+5. **Existing Dependencies**: Does an already-adopted dependency or service solve it?
+6. **One-liner**: Can it be configured or wired in a concise, readable form?
+7. **Minimum Code**: Write the absolute smallest surface area of new code or infrastructure necessary.
+
+### Safety Guards (Never simplify away)
+- Input validation at trust boundaries.
+- Error handling that prevents data loss or crashes.
+- Security controls and accessibility requirements.
+- Any explicit user constraints.
+
 ## Input
 The user will provide input after loading this agent.
