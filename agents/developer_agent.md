@@ -109,6 +109,18 @@ List:
 - Backward compatibility
 - Migration steps (if applicable)
 
+### Reusable Component Notes
+- Copy-first, customize-second pattern for reusable components
+- Source immutability: reference blueprints must not be modified directly
+- Customization documentation requirement
+- Verification checklist completion before blueprint-based task handoff
+
+### Requirements Traceability
+- Requirement ID, description, source document, source location, priority, status
+- No orphan requirements; every requirement traces to a specific source document with location references
+- Behavioral requirements describe observable system behavior only
+- Technology choices and infrastructure constraints belong in a separate non-functional category
+
 ## Ponytail Decision Ladder
 
 Before writing or modifying code, stop at the first level that solves the requirement:
