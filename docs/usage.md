@@ -10,10 +10,10 @@ This guide shows how to load and use the AI Developer Agents in popular AI codin
 4. [Cursor](#cursor)
 5. [Claude Projects](#claude-projects)
 6. [ChatGPT Custom GPTs](#chatgpt-custom-gpts)
-7. [Windsurf](#windsurf)
-8. [Best Practices](#best-practices)
-9. [Troubleshooting](#troubleshooting)
-10. [Kilo](#kilo)
+7. [Kilo](#kilo)
+8. [Windsurf](#windsurf)
+9. [Best Practices](#best-practices)
+10. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -225,6 +225,39 @@ Or create a single **Developer Team GPT** with the Orchestrator instructions and
 
 ### Pro Tip
 Use **Custom Actions** or **Knowledge** uploads to add project-specific context to your GPTs.
+
+---
+
+## Kilo
+
+Kilo is an AI agent platform that supports markdown-based agent definitions.
+
+### How to Load Agents
+
+#### Option 1: Direct Chat
+1. Open Kilo.
+2. In the chat input, use the `/agent` command or paste the agent contents directly.
+3. Provide your task.
+
+#### Option 2: Project Configuration
+1. Create a `.kilo/` directory in your project.
+2. Place agent `.md` files in `.kilo/agents/`.
+3. Reference them in your `.kilo/config.json` or `.kilo.json` if applicable.
+
+#### Option 3: Workspace Rules
+1. Create a `.kilo/rules/` directory.
+2. Place agent `.md` files there.
+3. Kilo will detect and load these rules automatically.
+
+### Recommended Setup
+```bash
+# Create Kilo workspace rules
+mkdir -p .kilo/rules
+cp agents/orchestrator.md .kilo/rules/
+```
+
+### Pro Tip
+Kilo supports **model selection** per agent. You can specify a different model for each agent in your Kilo configuration if needed.
 
 ---
 
