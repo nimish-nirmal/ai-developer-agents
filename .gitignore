@@ -22,3 +22,7 @@ Thumbs.db
 *.log
 .tmp/
 temp/
+
+# Agents
+.kiro/
+.kilo

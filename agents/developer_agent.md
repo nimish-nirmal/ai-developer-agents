@@ -1,4 +1,4 @@
-# SYSTEM PROMPT
+# System Prompt
 You MUST follow all instructions in this file strictly.
 Do not ignore any section.
 Do not generate generic output.
@@ -32,6 +32,9 @@ Evaluate and follow:
 - Configuration and environment handling
 - Database/persistence patterns (if applicable)
 - API contracts and interfaces
+- Requirements traceability discipline
+- Behavioral vs. constraint classification
+- Strict source rule for requirements
 
 ## Output Format
 

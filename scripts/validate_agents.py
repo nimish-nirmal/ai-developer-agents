@@ -86,16 +86,35 @@ def validate_legacy_format(path: Path, content: str) -> list[str]:
     errors = []
     body = content
 
-    if not body.strip().startswith("# SYSTEM PROMPT"):
-        errors.append("Missing '# SYSTEM PROMPT' header")
+    if not body.strip().startswith("# System Prompt"):
+        errors.append("Missing '# System Prompt' header")
         return errors
 
     if "# Agent:" not in body:
         errors.append("Missing '# Agent: <Name>' declaration")
 
-    for section in LEGACY_SECTIONS:
-        if section not in body:
-            errors.append(f"Missing required section '{section}'")
+    present_sections = set()
+    for line in body.splitlines():
+        if line.startswith("## "):
+            section_name = line.strip()[3:].strip()
+            present_sections.add(section_name)
+
+    if "Role" not in present_sections:
+        errors.append("Missing required section 'Role'")
+
+    task_sections = {"Task", "Task Execution Protocol", "Core Responsibilities", "Execution Workflow"}
+    if not (present_sections & task_sections):
+        errors.append("Missing required section: Task or Execution Workflow or Task Execution Protocol or Core Responsibilities")
+
+    output_sections = {"Output Format", "Outputs", "Input/Output"}
+    if not (present_sections & output_sections):
+        errors.append("Missing required section: Output Format or Outputs or Input/Output")
+
+    input_sections = {"Input", "Inputs", "Input/Output"}
+    has_input = bool(present_sections & input_sections)
+    has_input_in_task = any(s in present_sections for s in task_sections) and "Input" in body
+    if not has_input and not has_input_in_task:
+        errors.append("Missing required section: Input or Inputs")
 
     if len(content.strip()) < 100:
         errors.append("File appears empty or placeholder-only")
@@ -107,7 +126,7 @@ def validate_file(path: Path) -> tuple[list[str], str]:
     """Returns (errors, format_type)."""
     content = path.read_text(encoding="utf-8")
 
-    if content.strip().startswith("# SYSTEM PROMPT"):
+    if content.strip().startswith("# System Prompt"):
         errors = validate_legacy_format(path, content)
         return errors, "legacy"
 

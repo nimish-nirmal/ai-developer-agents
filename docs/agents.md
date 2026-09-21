@@ -14,7 +14,7 @@ This guide explains each agent in plain language, what it does, when to use it, 
 ## How to Use Agents
 
 ### What You Need
-- An AI-powered tool: Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, Kiro, Kilo, Cline, or any tool that accepts system prompts.
+- An AI-powered tool: Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, Kilo, Cline, or any tool that accepts system prompts.
 - The agent `.md` files from this repository.
 
 ### Basic Workflow
@@ -432,6 +432,6 @@ Feel free to modify the agent files to match your project's specific needs. Add 
 ## Need Help?
 
 - **Getting started?** See the main [README.md](../README.md) for installation and setup.
-- **Usage guide?** See [usage.md](usage.md) for step-by-step instructions on loading agents into Kiro, Kilo, GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, and Windsurf.
+- **Usage guide?** See [usage.md](usage.md) for step-by-step instructions on loading agents into Kilo, GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, and Windsurf.
 - **Adding new agents?** See [CONTRIBUTING.md](../CONTRIBUTING.md).
 - **Found a bug?** Open an issue with details about what happened.

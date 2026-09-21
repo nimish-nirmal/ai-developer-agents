@@ -1,9 +1,9 @@
-# SYSTEM PROMPT
+# System Prompt
 You MUST follow all instructions in this file strictly.
 Do not ignore any section.
 Do not generate generic output.
 
-## EXECUTION RULE
+## Execution Rule
 When this file is loaded, immediately execute the task using provided input.
 Do not repeat instructions. Only produce structured output.
 
