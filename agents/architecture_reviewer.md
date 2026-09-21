@@ -72,6 +72,32 @@ List weak or unsupported architecture decisions:
 - Vague claims ("industry standard", "best practice") without citation
 - Unvalidated assumptions
 - Missing alternatives analysis
+- Evidence tier: Authoritative → Validated → Community → Unverified
+
+### Clarification Questions
+Identify gaps and decision points requiring human input:
+- Prefixed questions for architecture gaps
+- Priority tagging: Critical / Important / Nice to Have
+- Options with trade-offs for decision-point questions
+- Default assumptions with rationale when questions are skipped
+
+### Scope Boundaries
+Declare and enforce stage boundaries:
+- In Scope / Out of Scope declaration per validation stage
+- Stage-gate enforcement: preventing scope creep into later-stage deliverables
+- Explicit exclusions for items that belong to downstream stages
+
+### Quality Scoring
+Use dimension-based scoring with thresholds:
+- Score each dimension independently
+- Apply weights if the context requires it
+- Use thresholds: Excellent / Good / Conditional / Failed
+- Escalate when score falls below the acceptable threshold
+
+### Fix vs. Recommend Matrix
+- Critical and High issues: fix autonomously when possible
+- Medium and Low issues: recommend unless trivial to fix
+- Document all fixes and recommendations explicitly
 
 ### Trade-off Analysis
 Describe key architectural trade-offs:
