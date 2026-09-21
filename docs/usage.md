@@ -5,16 +5,15 @@ This guide shows how to load and use the AI Developer Agents in popular AI codin
 ## Table of Contents
 
 1. [General Concept](#general-concept)
-2. [Kiro](#kiro)
-3. [Kilo](#kilo)
-4. [GitHub Copilot & GitHub Tools](#github-copilot--github-tools)
-5. [Cline](#cline)
-6. [Cursor](#cursor)
-7. [Claude Projects](#claude-projects)
-8. [ChatGPT Custom GPTs](#chatgpt-custom-gpts)
-9. [Windsurf](#windsurf)
-10. [Best Practices](#best-practices)
-11. [Troubleshooting](#troubleshooting)
+2. [GitHub Copilot & GitHub Tools](#github-copilot--github-tools)
+3. [Cline](#cline)
+4. [Cursor](#cursor)
+5. [Claude Projects](#claude-projects)
+6. [ChatGPT Custom GPTs](#chatgpt-custom-gpts)
+7. [Windsurf](#windsurf)
+8. [Best Practices](#best-practices)
+9. [Troubleshooting](#troubleshooting)
+10. [Kilo](#kilo)
 
 ---
 
@@ -31,78 +30,6 @@ To use any agent, you need to:
 3. **Provide your task input** as you normally would
 
 The AI will then "become" that agent and respond according to its specialized instructions.
-
----
-
-## Kiro
-
-Kiro is an AI coding assistant that supports custom instructions and project-level prompts.
-
-### How to Load Agents
-
-#### Option 1: Chat Instructions (Recommended for Quick Use)
-1. Open Kiro in your project.
-2. Click the **settings/instructions** icon in the chat panel.
-3. Paste the full contents of the desired agent `.md` file.
-4. Start chatting with the agent.
-
-#### Option 2: Project Instructions (Recommended for Repeated Use)
-1. Create a `.kiro/` directory in your project root.
-2. Create a file like `.kiro/instructions.md`.
-3. Paste the agent contents into this file.
-4. Kiro will load these instructions automatically for your project.
-
-#### Option 3: Global Instructions
-1. Open Kiro settings.
-2. Navigate to **Instructions** or **Custom Prompts**.
-3. Paste the agent contents.
-4. These instructions will apply to all projects.
-
-### Recommended Setup
-- Use **Option 2** (Project Instructions) for the Orchestrator agent.
-- Use **Option 1** (Chat Instructions) for one-off specialist tasks.
-
-### Example
-```bash
-# Create project instructions
-mkdir -p .kiro
-cp agents/orchestrator.md .kiro/instructions.md
-```
-
-Then open Kiro and start with: *"Build a REST API for a todo app with user authentication."*
-
----
-
-## Kilo
-
-Kilo is an AI agent platform that supports markdown-based agent definitions.
-
-### How to Load Agents
-
-#### Option 1: Direct Chat
-1. Open Kilo.
-2. In the chat input, use the `/agent` command or paste the agent contents directly.
-3. Provide your task.
-
-#### Option 2: Project Configuration
-1. Create a `.kilo/` directory in your project.
-2. Place agent `.md` files in `.kilo/agents/`.
-3. Reference them in your `.kilo/config.json` or `.kilo.json` if applicable.
-
-#### Option 3: Workspace Rules
-1. Create a `.kilo/rules/` directory.
-2. Place agent `.md` files there.
-3. Kilo will detect and load these rules automatically.
-
-### Recommended Setup
-```bash
-# Create Kilo workspace rules
-mkdir -p .kilo/rules
-cp agents/orchestrator.md .kilo/rules/
-```
-
-### Pro Tip
-Kilo supports **model selection** per agent. You can specify a different model for each agent in your Kilo configuration if needed.
 
 ---
 
@@ -383,6 +310,104 @@ Feel free to modify agents to match your tech stack:
 
 ---
 
+## Steering Files
+
+The `steering/` directory contains generic, platform-agnostic handler files that encode reusable patterns for task execution, validation, security, and workflow orchestration.
+
+### What Are Steering Files?
+
+Steering files are **shared behavioral templates** that agents can reference to ensure consistent execution across different AI tools and runtimes. They cover:
+- Task execution phases and decision guidance
+- Validation principles for requirements, architecture, code, APIs, and deployments
+- Secure coding guidelines
+- Workflow orchestration patterns
+- Technical writing standards
+- Version control practices
+- Implementation pitfalls to avoid
+
+### How to Use Steering Files
+
+#### Option 1: Include in Agent Prompts
+Paste the relevant steering file content into an agent's system prompt when you want that agent to follow a specific protocol:
+
+```text
+# Agent: Coding Expert
+
+## Execution Protocol
+[Paste contents of steering/task-execution.md here]
+
+## Role
+...
+```
+
+#### Option 2: Load as Project Rules
+Copy steering files into your AI tool's rules directory so they apply globally:
+
+```bash
+# Cursor
+mkdir -p .cursor/rules
+cp steering/*.md .cursor/rules/
+
+# Kilo
+mkdir -p .kilo/rules
+cp steering/*.md .kilo/rules/
+```
+
+#### Option 3: Reference in Orchestrator
+The Orchestrator can load steering files as context when dispatching tasks that require specific protocols:
+
+```text
+User: "Implement a secure payment feature with full validation."
+Orchestrator: Loads steering/task-execution.md and steering/secure-coding.md as context, then dispatches to developer_agent and security_auditor.
+```
+
+### Available Steering Files
+
+| File | Purpose |
+|------|---------|
+| `task-execution.md` | 6-phase execution protocol: Analyze, Design, Implement, Validate, Document, Deliver |
+| `validation.md` | Validation principles for requirements, architecture, code, APIs, and deployments |
+| `secure-coding.md` | Authentication, input validation, data protection, error handling, and dependency security |
+| `workflow-orchestration.md` | Patterns for coordinating multi-agent workflows |
+| `collaboration.md` | Guidelines for agent-to-agent communication and context sharing |
+| `development-principles.md` | Core software engineering principles and best practices |
+| `technical-writing.md` | Standards for documentation, API specs, and inline comments |
+| `version-control.md` | Git workflow, commit conventions, and branch management |
+| `implementation-pitfalls.md` | Common mistakes and anti-patterns to avoid |
+
+### Pro Tip
+Steering files are designed to be **tool-agnostic**. Use them to standardize how agents execute tasks regardless of whether you're using Cursor, Claude, Copilot, Kilo, Cline, or Windsurf.
+
+---
+
+## FAQ
+
+**Q: Which agent should I start with?**
+- For complex projects, start with `orchestrator.md`. For solo work or simple tasks, use `general_engineer.md`.
+
+**Q: Can I use multiple agents at once?**
+- Yes. Use the Orchestrator to coordinate multiple agents. In chat-based tools, load one agent per conversation.
+
+**Q: Are these agents free to use?**
+- Yes. The agent definitions are open source. You only pay for the underlying AI tool usage.
+
+**Q: Can I modify agents for my project?**
+- Yes. Feel free to customize agents to match your tech stack, coding standards, and domain requirements.
+
+**Q: How do I verify agents are formatted correctly?**
+- Run `python scripts/validate_agents.py` locally. This checks required sections, headers, and file completeness.
+
+**Q: Do agents work offline?**
+- No. Agents are prompts for AI tools and require an active connection to the tool's model.
+
+**Q: Can I use agents with multiple tools?**
+- Yes. Agent `.md` files are tool-agnostic and can be loaded into Cursor, Claude, Copilot, Kilo, Cline, Windsurf, and others.
+
+**Q: How do I add a new agent?**
+- Create a new `.md` file in `agents/` following the existing format: system prompt header, Role, Task, Output Format, and Input sections.
+
+---
+
 ## Troubleshooting
 
 ### Agent Not Loading
@@ -405,20 +430,58 @@ Feel free to modify agents to match your tech stack:
 - **Install PyYAML**: `pip install pyyaml`
 - **Run locally first**: `python scripts/validate_agents.py` to see exact errors
 
+### Agent Output Is Too Long
+- **Use structured output**: All agents define an output format; ask them to respect it.
+- **Break into subtasks**: Let the Orchestrator split large tasks instead of one giant output.
+- **Specify constraints**: Add length or section limits to your task input.
+
+### Tool-Specific Issues
+
+#### Cursor
+- Rules may not load if the `.cursor/rules/` directory is missing or misnamed.
+- Ensure files have `.md` extension.
+
+#### Claude Projects
+- Large agent files may need to be split into multiple project knowledge files.
+- Use the Instructions field for the primary agent; upload others as knowledge.
+
+#### GitHub Copilot
+- `.github/copilot-instructions.md` must be at the repo root.
+- Copilot may not reload automatically; restart VS Code after changes.
+
+#### Kilo
+- Use `.kilo/rules/*.md` for workspace rules.
+- Kilo supports model selection per agent in `.kilo/config.json` or `.kilo.json`.
+
+#### Windsurf
+- Rules go in `.windsurf/rules/` at the project root.
+- Global rules apply across all projects.
+
+### Validation Errors
+
+**"Unrecognized format"**
+- The file does not start with `# SYSTEM PROMPT` and lacks YAML frontmatter.
+- Ensure the agent header matches the standard format.
+
+**"Missing required section"**
+- Add the missing section: `Role`, `Task`, `Output Format`, `Input`.
+
+**"Filename does not match agent name"**
+- Rename the file to match the agent name in the frontmatter or header.
+
 ---
 
 ## Quick Reference Card
 
 | Tool | Best Location | File Format | Auto-load? |
 |------|---------------|-------------|------------|
-| Kiro | `.kiro/instructions.md` | Markdown | Yes (project) |
-| Kilo | `.kilo/rules/*.md` | Markdown | Yes |
 | GitHub Copilot | `.github/copilot-instructions.md` | Markdown | Yes |
 | Cline | `.cline/instructions.md` | Markdown | Maybe |
 | Cursor | `.cursor/rules/*.md` | Markdown | Yes |
 | Claude Projects | Upload / Instructions | Markdown | Yes |
 | ChatGPT GPTs | Instructions field | Markdown | Yes |
 | Windsurf | `.windsurf/rules/*.md` | Markdown | Yes |
+| Kilo | `.kilo/rules/*.md` | Markdown | Yes |
 
 ---
 

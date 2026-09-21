@@ -10,13 +10,13 @@ A production-ready suite of 14 specialized AI software engineering subagents for
 
 Imagine you have a big software project to build—like a website, a mobile app, or a backend API. Normally, you'd need a whole team: an architect to design the system, a developer to write code, a tester to check for bugs, a security expert to lock it down, a DevOps engineer to deploy it, and more.
 
-This repository gives you that entire team—as AI prompts you can load into tools like Cursor, Claude, or GitHub Copilot. Each "agent" is a specialized AI persona with expert knowledge in a specific domain. You talk to the **Orchestrator** (the team lead), and it automatically delegates tasks to the right specialists, then combines their work into a final result.
+This repository gives you that entire team—as AI prompts you can load into tools like GitHub Copilot, Cursor, Claude, ChatGPT, Kilo, and Windsurf. Each "agent" is a specialized AI persona with expert knowledge in a specific domain. You talk to the **Orchestrator** (the team lead), and it automatically delegates tasks to the right specialists, then combines their work into a final result.
 
 ## Core Features
 
 - **Orchestrator + Subagents Model**: A central Orchestrator decomposes tasks and dispatches them to specialized subagents, then synthesizes their outputs into a unified deliverable.
-- **20 Specialized Agents**: Covering the full SDLC—architecture, implementation, testing, documentation, review, security, DevOps, performance, IoT, integration, debugging, refactoring, business communication, and a general-purpose solo engineer.
-- **IDE-Agnostic Prompts**: Markdown-based agent definitions load directly into Cursor, Claude, ChatGPT, GitHub Copilot, Windsurf, and similar tools.
+- **20+ Specialized Agents**: Covering the full SDLC—architecture, implementation, testing, documentation, review, security, DevOps, performance, IoT, integration, debugging, refactoring, business communication, and a general-purpose solo engineer.
+- **IDE-Agnostic Prompts**: Markdown-based agent definitions load directly into GitHub Copilot, Cursor, Claude Projects, ChatGPT, Kilo, Windsurf, and similar tools.
 - **CI Validation**: Automated linting and validation of agent definitions on every PR.
 - **Extensible**: Add custom agents by following the established schema and conventions.
 
@@ -43,23 +43,80 @@ Specialized AI agents produce better results than a single general-purpose AI be
 The system follows a **hub-and-spoke architecture**:
 
 ```mermaid
-flowchart TD
-    Orchestrator --> APISpecialist
-    Orchestrator --> Architect
-    Orchestrator --> CodeGenerator
-    Orchestrator --> CodeReviewer
-    Orchestrator --> DatabaseExpert
-    Orchestrator --> DocCreator
-    Orchestrator --> FrontendReviewer
-    Orchestrator --> IntegrationReviewer
-    Orchestrator --> IoTExpert
-    Orchestrator --> PerformanceAnalyst
-    Orchestrator --> SecurityAuditor
-    Orchestrator --> GeneralEngineer
-    Orchestrator --> Debugger
-    Orchestrator --> RefactoringSpecialist
-    Orchestrator --> CyberSecurityExpert
-    Orchestrator --> BusinessDocSpecialist
+flowchart LR
+    O[Orchestrator]
+    
+    subgraph Planning[Planning & Research]
+        direction TB
+        A1[Architect]
+        A2[Architecture Reviewer]
+        A3[Architecture Peer Reviewer]
+        A4[Requirements Engineer]
+        A5[Requirements Reviewer]
+        A6[Researcher]
+    end
+    
+    subgraph API[API & Data]
+        direction TB
+        B1[API Specialist]
+        B2[API Reviewer]
+        B3[Database Expert]
+    end
+    
+    subgraph Implementation[Implementation]
+        direction TB
+        C1[Code Generator]
+        C2[Coding Expert]
+        C3[Builder]
+        C4[General Engineer]
+        C5[Frontend Reviewer]
+        C6[Integration Reviewer]
+        C7[IoT Specialist]
+    end
+    
+    subgraph Quality[Quality]
+        direction TB
+        D1[Code Reviewer]
+        D2[Refactoring Specialist]
+        D3[Debugger]
+        D4[Test Writer]
+        D5[Performance Analyst]
+    end
+    
+    subgraph Security[Security]
+        direction TB
+        E1[Security Auditor]
+        E2[Security Reviewer]
+        E3[Security Assessor]
+        E4[Cyber Security Expert]
+    end
+    
+    subgraph Cloud[Cloud & DevOps]
+        direction TB
+        F1[AWS Expert]
+        F2[GCP Expert]
+        F3[Azure Expert]
+        F4[DevOps Reviewer]
+        F5[Deployment Reviewer]
+        F6[Pipeline Manager]
+        F7[GitHub Expert]
+    end
+    
+    subgraph Documentation[Documentation & Visualization]
+        direction TB
+        G1[Document Creator]
+        G2[Business Doc Specialist]
+        G3[Diagram Expert]
+        G4[Mermaid Expert]
+    end
+    
+    O --> Planning
+    O --> API
+    O --> Implementation
+    O --> Quality
+    O --> Security
+    O --> Cloud
+    O --> Documentation
 ```
 
 The **Orchestrator** receives high-level user tasks, decomposes them into discrete subtasks, dispatches each to the most appropriate agent, and synthesizes the results into a final deliverable. This enables complex, end-to-end workflows while maintaining specialization and quality.
@@ -97,33 +154,101 @@ git clone https://github.com/nimish-nirmal/ai-developer-agents.git
 cd ai-developer-agents
 ```
 
+### Step 2: Minimal Agent Config Examples
+
+#### GitHub Copilot Chat
+
+```text
+# .github/copilot-instructions.md
+# Paste the full contents of agents/orchestrator.md here
+```
+
+#### Cursor
+
+```text
+# .cursor/rules/orchestrator.md
+# Paste the full contents of agents/orchestrator.md here
+```
+
+#### Claude Projects
+
+```text
+# Project Instructions
+# Paste the full contents of agents/orchestrator.md here
+```
+
+#### ChatGPT Custom GPTs
+
+```text
+# Instructions field
+# Paste the full contents of agents/orchestrator.md here
+```
+
+#### Kilo
+
+```text
+# .kilo/rules/orchestrator.md
+# Paste the full contents of agents/orchestrator.md here
+```
+
+#### Windsurf
+
+```text
+# .windsurf/rules/orchestrator.md
+# Paste the full contents of agents/orchestrator.md here
+```
+
+### Step 3: Run a Task
+
+```text
+User: Build a REST API with authentication.
+Assistant: Uses the loaded orchestrator to dispatch architecture, coding, testing, review, security, and deployment work, then returns one integrated result.
+```
+
+### Step 4: Validation
+
+```bash
+python scripts/validate_agents.py
+```
+
 ### Step 2: Load Agents into Your IDE
 
 Each agent is a standalone markdown file. Load them into your preferred AI tool:
 
+#### GitHub Copilot Chat
+
+1. In your repository, create a `.github/copilot-instructions.md` file.
+2. Paste the agent system prompt content into this file.
+3. Copilot will use this as project-wide context.
+
 #### Cursor
+
 1. Open your project in Cursor.
 2. Create a `.cursor/rules/` directory (if it doesn't exist).
 3. Copy the desired agent `.md` files into `.cursor/rules/`.
 4. Cursor will automatically detect and load these rules.
 
 #### Claude Projects
+
 1. Go to [Claude Projects](https://claude.ai/projects).
 2. Create a new project.
 3. Upload or paste the agent markdown files as project knowledge.
 4. Select the appropriate agent as the system prompt for your conversation.
 
 #### ChatGPT Custom GPTs
+
 1. Go to [GPT Store](https://chat.openai.com/gpts) or create a Custom GPT.
 2. In the "Instructions" field, paste the contents of the desired agent `.md` file.
 3. Optionally upload supporting files from the `examples/` directory.
 
-#### GitHub Copilot
-1. In your repository, create a `.github/copilot-instructions.md` file.
-2. Paste the agent system prompt content into this file.
-3. Copilot will use this as project-wide context.
+#### Kilo
+
+1. Open Kilo.
+2. In the chat input, use the `/agent` command or paste the agent contents directly.
+3. Provide your task.
 
 #### Windsurf
+
 1. Open your project in Windsurf.
 2. Navigate to `.windsurf/rules/`.
 3. Place agent `.md` files there for automatic loading.
@@ -196,11 +321,16 @@ A complete, production-ready repository with:
 
 ### Workflow 2: Using Multiple AI Tools Together
 
-This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, Copilot, Kilo) with the agent suite for maximum productivity.
+This workflow demonstrates how to use multiple AI coding tools (GitHub Copilot, Cursor, Claude Projects, ChatGPT, Kilo, Windsurf) with the agent suite for maximum productivity.
 
 **Scenario**: You're building a new SaaS product and want to leverage multiple AI tools.
 
-#### Step 1: Cursor — Initial Project Scaffolding
+#### Step 1: GitHub Copilot — Inline Implementation
+1. Load `developer_agent.md` into Copilot via `.github/copilot-instructions.md`.
+2. As you write code, Copilot suggests implementations following the Ponytail Decision Ladder.
+3. Copilot flags potential bloat, suggesting stdlib/platform solutions first.
+
+#### Step 2: Cursor — Initial Project Scaffolding
 1. Load `general_engineer.md` into Cursor as a project rule (`.cursor/rules/general_engineer.md`).
 2. Ask Cursor to scaffold the project:
    ```
@@ -210,26 +340,7 @@ This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, 
    ```
 3. Cursor generates the initial project structure using the general engineer's expertise.
 
-#### Step 2: GitHub Copilot — Inline Implementation
-1. Load `developer_agent.md` into Copilot via `.github/copilot-instructions.md`.
-2. As you write code, Copilot suggests implementations following the Ponytail Decision Ladder.
-3. Copilot flags potential bloat, suggesting stdlib/platform solutions first.
-
-#### Step 3: Kilo — Deep Architecture Review
-1. Open Kilo and load `architecture_reviewer.md`.
-2. Ask Kilo to review the architecture:
-   ```
-   Review the architecture of the project in /path/to/project.
-   Focus on scalability, reliability, and cost efficiency.
-   ```
-3. Kilo provides detailed architectural feedback with trade-offs.
-
-#### Step 4: Cursor — Security & Performance
-1. In Cursor, switch to `security_auditor.md` context.
-2. Run a security audit on the generated code.
-3. Switch to `performance_analyst.md` and profile for bottlenecks.
-
-#### Step 5: Claude Projects — Business Documentation
+#### Step 3: Claude Projects — Business Documentation
 1. Create a Claude Project and upload `business_documentation_specialist.md`.
 2. Feed it the architecture docs and codebase:
    ```
@@ -238,16 +349,44 @@ This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, 
    ```
 3. Claude generates professional business documents and presentations.
 
-#### Step 6: Orchestrator — Final Integration
+#### Step 4: ChatGPT Custom GPTs — API Design
+1. Create a Custom GPT and paste `api_specialist.md` into the Instructions field.
+2. Feed it your API requirements:
+   ```
+   Design a REST API for task management with pagination, filtering, and authentication.
+   ```
+3. ChatGPT generates a complete OpenAPI specification with validation rules.
+
+#### Step 5: Kilo — Deep Architecture Review
+1. Open Kilo and load `architecture_reviewer.md`.
+2. Ask Kilo to review the architecture:
+   ```
+   Review the architecture of the project in /path/to/project.
+   Focus on scalability, reliability, and cost efficiency.
+   ```
+3. Kilo provides detailed architectural feedback with trade-offs.
+
+#### Step 6: Windsurf — Frontend Review
+1. Open your project in Windsurf.
+2. Load `frontend_reviewer.md` as a project rule.
+3. Ask Windsurf to review the UI/UX and accessibility:
+   ```
+   Review the frontend implementation for accessibility, performance, and responsiveness.
+   ```
+4. Windsurf provides UX findings and accessibility recommendations.
+
+#### Step 7: Orchestrator — Final Integration
 1. Load `orchestrator.md` into your primary tool.
 2. Ask it to review all outputs from the other tools and create a unified project plan.
 3. The Orchestrator synthesizes everything into a coherent final deliverable.
 
-**Result**: You've used 5 different AI tools, each with specialized agents, to build a complete product. Each tool played to its strengths:
+**Result**: You've used multiple AI tools, each with specialized agents, to build a complete product. Each tool played to its strengths:
+- **GitHub Copilot**: Inline suggestions and bloat prevention
 - **Cursor**: Fast code generation and editing
-- **Copilot**: Inline suggestions and bloat prevention
+- **Claude Projects**: Long-form business content
+- **ChatGPT Custom GPTs**: API design and specification
 - **Kilo**: Deep analysis and review
-- **Claude**: Long-form business content
+- **Windsurf**: Frontend review and UX validation
 - **Orchestrator**: Synthesis and coordination
 
 ---
@@ -389,11 +528,12 @@ This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, 
 ### Tips for Multi-Tool Workflows
 
 1. **Play to Each Tool's Strengths**
+   - **GitHub Copilot**: Context-aware suggestions, bloat prevention
    - **Cursor**: Fast code generation, inline editing
-   - **Copilot**: Context-aware suggestions, bloat prevention
-   - **Kilo/Kiro**: Deep analysis, long-form reasoning
-   - **Claude**: Long documents, business content
-   - **GPTs**: Customized repeatable workflows
+   - **Claude Projects**: Long documents, business content
+   - **ChatGPT Custom GPTs**: Customized repeatable workflows
+   - **Kilo**: Deep analysis, long-form reasoning
+   - **Windsurf**: Frontend review and UX validation
 
 2. **Use Orchestrator as the Brain**
    Let the Orchestrator coordinate between tools and synthesize results.
@@ -434,6 +574,16 @@ This workflow demonstrates how to use multiple AI coding tools (Cursor, Claude, 
 - Investor pitch deck and whitepaper
 - Complete technical documentation
 
+## Example Files
+
+See the `examples/` directory for copy-paste workflow examples:
+
+- `examples/basic-workflow.md` — password reset feature implementation
+- `examples/iot-workflow.md` — IoT edge gateway design and implementation
+- `examples/multi-cloud-review.md` — AWS and GCP architecture review
+- `examples/diagram-review.md` — architecture diagram and Mermaid review
+- `examples/git-workflow-review.md` — Git branching and CI/CD pipeline review
+
 
 ## Validation
 
@@ -455,7 +605,7 @@ See [docs/agents.md](docs/agents.md) for a categorized breakdown of all agents w
 
 ## Usage Guide
 
-See [docs/usage.md](docs/usage.md) for step-by-step instructions on loading agents into Kiro, Kilo, GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, and Windsurf.
+See [docs/usage.md](docs/usage.md) for step-by-step instructions on loading agents into GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, Kilo, and Windsurf.
 
 ## Contribution Guidelines
 

@@ -1,4 +1,4 @@
-# SYSTEM PROMPT
+# System Prompt
 You MUST follow all instructions in this file strictly.
 Do not ignore any section.
 Do not generate generic output.
