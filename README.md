@@ -10,13 +10,13 @@ A production-ready suite of 14 specialized AI software engineering subagents for
 
 Imagine you have a big software project to build—like a website, a mobile app, or a backend API. Normally, you'd need a whole team: an architect to design the system, a developer to write code, a tester to check for bugs, a security expert to lock it down, a DevOps engineer to deploy it, and more.
 
-This repository gives you that entire team—as AI prompts you can load into tools like GitHub Copilot, Cursor, Claude, ChatGPT, Kilo, and Windsurf. Each "agent" is a specialized AI persona with expert knowledge in a specific domain. You talk to the **Orchestrator** (the team lead), and it automatically delegates tasks to the right specialists, then combines their work into a final result.
+This repository gives you that entire team—as AI prompts you can load into tools like GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, Kilo, and Windsurf. Each "agent" is a specialized AI persona with expert knowledge in a specific domain. You talk to the **Orchestrator** (the team lead), and it automatically delegates tasks to the right specialists, then combines their work into a final result.
 
 ## Core Features
 
 - **Orchestrator + Subagents Model**: A central Orchestrator decomposes tasks and dispatches them to specialized subagents, then synthesizes their outputs into a unified deliverable.
 - **20+ Specialized Agents**: Covering the full SDLC—architecture, implementation, testing, documentation, review, security, DevOps, performance, IoT, integration, debugging, refactoring, business communication, and a general-purpose solo engineer.
-- **IDE-Agnostic Prompts**: Markdown-based agent definitions load directly into GitHub Copilot, Cursor, Claude Projects, ChatGPT, Kilo, Windsurf, and similar tools.
+- **IDE-Agnostic Prompts**: Markdown-based agent definitions load directly into GitHub Copilot, Cline, Cursor, Claude Projects, ChatGPT, Kilo, Windsurf, and similar tools.
 - **CI Validation**: Automated linting and validation of agent definitions on every PR.
 - **Extensible**: Add custom agents by following the established schema and conventions.
 
@@ -163,6 +163,13 @@ cd ai-developer-agents
 # Paste the full contents of agents/orchestrator.md here
 ```
 
+#### Cline
+
+```text
+# .cline/instructions.md
+# Paste the full contents of agents/orchestrator.md here
+```
+
 #### Cursor
 
 ```text
@@ -220,6 +227,13 @@ Each agent is a standalone markdown file. Load them into your preferred AI tool:
 1. In your repository, create a `.github/copilot-instructions.md` file.
 2. Paste the agent system prompt content into this file.
 3. Copilot will use this as project-wide context.
+
+#### Cline
+
+1. Open Cline in VS Code.
+2. Create a `.cline/instructions.md` file or open Cline settings.
+3. Paste the agent contents.
+4. Cline will use these instructions for the session.
 
 #### Cursor
 
